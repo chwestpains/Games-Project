@@ -1,3 +1,5 @@
+from turtle import *
+
 def dijkstra(graph,src,dest,visited=[],distances={},predecessors={}):
     if src not in graph:
         raise TypeError('The root of the shortest path tree cannot be found')
@@ -18,7 +20,7 @@ def dijkstra(graph,src,dest,visited=[],distances={},predecessors={}):
         for index in range(1,len(path)):
             readable = path[index]+' ---> '+readable
         
-        return ("path: " + readable+", cost=" + str(distances[dest]))
+        return  str(distances[dest])
         
     else:     
 
@@ -40,3 +42,4 @@ def dijkstra(graph,src,dest,visited=[],distances={},predecessors={}):
                 unvisited[k] = distances.get(k,float('inf'))        
         x=min(unvisited, key=unvisited.get)
         return dijkstra(graph,x,dest,visited,distances,predecessors)
+
