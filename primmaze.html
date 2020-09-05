@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+    <style>
+        /* create animation for maze algorithm */
+        #maze {
+            width: 500px;
+            height: 500px;
+            position: relative;
+            background: purple;
+        }
+
+        #corners {
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            background-color: black;
+        }
+
+    </style>
+    <canvas id="maze">
+        Can't load the maze, your browser doesn't support HTML5.
+
+        
+    </canvas>
+
+    <noscript>Enable JavaScript to play.</noscript>
+    
+    <script>
+        const  x = 500;
+        const  y = 500;
+
+        var maze = document.getElementById("maze");
+        var context = maze.getContext("2d");
+       // maze.style.width = x.toString() + "px";
+        //maze.style.height = y.toString() + "px";
+
+        //var corners = document.getElementById("corners");
+
+        //choose a start cell
+        var mazeBox = new Array(x);
+
+        for (var i = 0; i < mazeBox.length; i++) {
+            mazeBox[i] = new Array(y);
+        }
+
+        const startX = Math.floor((Math.random() * x) +1);
+        const startY = Math.floor((Math.random()* y) +1);
+        var startCell = mazeBox[startX, startY];
+
+        context.beginPath();
+        
+        context.rect(startX, startY, 100, 100);
+        context.stroke();
+        context.closePath();
+        
+        context.fillStyle = "black";
+        context.fill();
+        
+        
+
+        var unvisitedNeighbours = [];
+        var visitedNeighbours = [];
+
+        //creates maze dimensions
+        
+
+        
+
+        
+        function checkNeighbours() {
+            //pushes all surrounding neighbours to unvisited neighbour list
+            if ((startX - 1) > -1) {
+                var newNeighbourLeft = mazeBox[(startX -1), startY];
+                if (visitedNeighbours.includes(newNeighbourLeft) == false) {
+                    unvisitedNeighbours.push(newNeighbourLeft);
+                    
+                }
+                
+            } else if ((startX + 1) < 101){
+                var newNeighbourRight = mazeBox[(startX +1), startY];
+                if (visitedNeighbours.includes(newNeighbourRight) == false) {
+                    unvisitedNeighbours.push(newNeighbourRight);
+                }
+            } else if ((startY -1) > -1) {
+                var newNeighbourUp = mazeBox[startX, (startY -1)];
+                if (visitedNeighbours.includes(newNeighbourUp) == false) {
+                    unvisitedNeighbours.push(newNeighbourUp);
+                }
+            } else if ((startY + 1) < 101) {
+                var newNeighboursDown = mazeBox[startX, (startY + 1)];
+                if (visitedNeighbours.includes(newNeighbourDown) == false) {
+                    unvisitedNeighbours.push(newNeighbourDown);
+                }
+            } else {
+                //no unvisited neighbours
+                alert("No Unvisited Neighbours Left");
+                break
+            }
+        }
+
+        function pickNeighbour(unvisitedNeighbours) {
+            chosenNeighbour = unvisitedNeighbours[Math.floor(Math.random()* unvisitedNeighbours.length)];
+            corners.lineTo()
+            unvisitedNeighbours.pop(chosenNeighbour);
+            visitedNeighbours.push(chosenNeighbour);
+        }
+
+        function createMaze() {
+            while (visitedNeighbours.length < 100) {
+                checkNeighbours();
+                pickNeighbour();
+            }
+        }
+    </script>
+</html>
